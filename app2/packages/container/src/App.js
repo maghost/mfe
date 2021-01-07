@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { mount as mountMarketing } from 'marketing/MarketingApp';
+// COMPONENTS
+import MarketingApp from './components/MarketingApp';
 
 const App = () => {
-  useEffect(() => mountMarketing(document.getElementById('my-marketing')), []);
-
   return (
-    <>
+    <div>
       <h1>Container</h1>
-      <div id='my-marketing' />
-    </>
+      <hr />
+      <MarketingApp />
+    </div>
   );
 };
 
