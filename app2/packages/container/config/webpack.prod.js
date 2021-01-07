@@ -9,6 +9,7 @@ const domain = process.env.PRODUCTION_DOMAIN;
 const prodConfig = {
   mode: 'production',
   output: {
+    publicPath: '/app2/container/latest/',
     filename: '[name].[contenthash].js',
   },
   plugins: [
