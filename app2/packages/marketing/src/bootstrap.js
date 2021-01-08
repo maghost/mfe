@@ -4,17 +4,31 @@ import { createMemoryHistory } from 'history';
 
 import App from './App';
 
-const mount = (el) => {
+const mount = (el, { onNavigate } = {}) => {
   const history = createMemoryHistory();
 
+  if (onNavigate) {
+    history.listen(onNavigate);
+  }
+
   ReactDOM.render(<App history={history} />, el);
+
+  return {
+    onParentNavigate({ pathname: nextPathname }) {
+      const { pathname } = history;
+
+      if (pathname !== nextPathname) {
+        history.push(pathname);
+      }
+    },
+  };
 };
 
 if (process.env.NODE_ENV === 'development') {
-  const el = document.getElementById('_marketing-dev-root');
+  const devRoot = document.getElementById('_marketing-dev-root');
 
-  if (el) {
-    mount(el);
+  if (devRoot) {
+    mount(devRoot);
   }
 }
 
