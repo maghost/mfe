@@ -1,4 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+// MATERIAL UI
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,19 +12,10 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
 
-function Copyright() {
-  return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link to='/'>Your Website</Link> {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// COMPONENTS
+import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -47,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ onSignIn }) {
+const SignUp = ({ onSignIn }) => {
   const classes = useStyles();
 
   return (
@@ -140,4 +135,6 @@ export default function SignUp({ onSignIn }) {
       </Box>
     </Container>
   );
-}
+};
+
+export default SignUp;
