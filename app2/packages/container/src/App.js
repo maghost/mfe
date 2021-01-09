@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import {
   StylesProvider,
   createGenerateClassName,
@@ -7,6 +7,9 @@ import {
 
 // COMPONENTS
 import Header from './components/Header';
+
+// MFE COMPONENTS
+import AuthApp from './components/AuthApp';
 import MarketingApp from './components/MarketingApp';
 
 const generateClassName = createGenerateClassName({
@@ -18,7 +21,10 @@ const App = () => {
     <StylesProvider generateClassName={generateClassName}>
       <BrowserRouter>
         <Header />
-        <MarketingApp />
+        <Switch>
+          <Route path='/auth' component={AuthApp} />
+          <Route path='/' component={MarketingApp} />
+        </Switch>
       </BrowserRouter>
     </StylesProvider>
   );

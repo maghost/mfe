@@ -11,14 +11,13 @@ const devConfig = {
   },
   devServer: {
     port: 8080,
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
   },
   plugins: [
     new ModuleFederationPlugin({
       name: 'mfe_container',
       remotes: {
+        auth: 'mfe_auth@http://localhost:8082/remoteEntry.js',
         marketing: 'mfe_marketing@http://localhost:8081/remoteEntry.js',
       },
       shared: packageJson.dependencies,
