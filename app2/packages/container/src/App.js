@@ -1,5 +1,6 @@
-import React, { lazy, Suspense, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 // MATERIAL UI
 import {
@@ -13,21 +14,29 @@ import Header from './components/Header';
 import Progress from './components/Progress';
 
 // MFE COMPONENTS
-const AuthLazy = lazy(() => import('./components/AuthApp'));
-const MarketingLazy = lazy(() => import('./components/MarketingApp'));
+const AuthLazy = lazy(() => import('./containers/AuthApp'));
+const DashboardLazy = lazy(() => import('./containers/DashboardApp'));
+const MarketingLazy = lazy(() => import('./containers/MarketingApp'));
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'container',
 });
 
+const history = createBrowserHistory();
+
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
-  console.log('App', isSignedIn);
+
+  useEffect(() => {
+    if (!isSignedIn) return;
+
+    history.push('/dashboard');
+  }, [isSignedIn]);
 
   return (
     <StylesProvider generateClassName={generateClassName}>
       <CssBaseline />
-      <BrowserRouter>
+      <Router history={history}>
         <Header
           isSignedIn={isSignedIn}
           onSignOut={() => setIsSignedIn(false)}
@@ -37,10 +46,14 @@ const App = () => {
             <Route path='/auth'>
               <AuthLazy onSignIn={() => setIsSignedIn(true)} />
             </Route>
+            <Route path='/dashboard'>
+              {!isSignedIn && <Redirect to='/' />}
+              <DashboardLazy />
+            </Route>
             <Route path='/' component={MarketingLazy} />
           </Switch>
         </Suspense>
-      </BrowserRouter>
+      </Router>
     </StylesProvider>
   );
 };

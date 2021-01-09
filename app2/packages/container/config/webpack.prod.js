@@ -17,6 +17,7 @@ const prodConfig = {
       name: 'mfe_container',
       remotes: {
         auth: `mfe_auth@${domain}/app2/auth/latest/remoteEntry.js`,
+        dashboard: `mfe_dashboard@${domain}/app2/dashboard/latest/remoteEntry.js`,
         marketing: `mfe_marketing@${domain}/app2/marketing/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
